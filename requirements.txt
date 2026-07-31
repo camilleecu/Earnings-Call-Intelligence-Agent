@@ -1,0 +1,25 @@
+# LLMs
+google-generativeai==0.7.2      # Gemini API client
+openai==1.42.0                  # If you also want OpenAI
+
+# Web app / interface
+streamlit==1.36.0
+
+# Data & HTTP
+requests==2.32.3
+pydantic==2.8.2
+python-dotenv==1.0.1
+pandas==2.2.2
+python-dotenv
+
+# Database & vector search
+psycopg[binary,pool]==3.1.19    # PostgreSQL driver
+pgvector==0.2.5                 # Python + pgvector integration [64][74]
+SQLAlchemy==2.0.30              # Optional, if you prefer ORM
+
+# Evaluation / ML utils (optional but useful)
+scikit-learn==1.5.1             # for simple metrics, re-ranking helpers
+sentence-transformers==3.0.1    # if you want local embeddings
+
+# Monitoring (if you go this route)
+grafana-api==1.0.0              # or any client you choose
