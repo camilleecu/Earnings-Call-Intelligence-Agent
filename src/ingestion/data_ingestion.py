@@ -1,3 +1,8 @@
+"""
+loading data and writing to Postgres
+data_ingestion.py = fetch, normalize, chunk, embed, store.
+"""
+
 import os
 import requests
 from typing import List, Dict, Any, Optional
@@ -78,7 +83,7 @@ model = SentenceTransformer("all-MiniLM-L6-v2")
 
 def embed_chunks(chunks: List[str]) -> List[List[float]]:
     # You can add batch_size here if needed
-    vectors = model.encode(chunks, convert_to_numpy=True, batch_size=64)
+    vectors = model.encode(chunks, convert_to_tensor=True, batch_size=64)
     return vectors.tolist()
 
 
@@ -125,11 +130,11 @@ def load_to_db(
 
 
 def ingest_ticker(ticker: str) -> None:
-    data = fetch_data(ticker)
-    normalized = normalize_example(data)
-    chunks = chunk_text(normalized["text"], chunk_size=1000, overlap=150)
+    raw_transcript = fetch_data(ticker)
+    normalized_transcript = normalize_example(raw_transcript)
+    chunks = chunk_text(normalized_transcript["text"], chunk_size=1000, overlap=150)
     embeddings = embed_chunks(chunks)
-    load_to_db(conn_str, normalized, chunks, embeddings)
+    load_to_db(conn_str, normalized_transcript, chunks, embeddings)
 
 
 
