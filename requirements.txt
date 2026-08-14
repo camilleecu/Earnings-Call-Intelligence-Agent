@@ -1,5 +1,5 @@
 # LLMs
-google-generativeai==0.7.2      # Gemini API client
+google-genai==1.32.0
 openai==1.42.0                  # If you also want OpenAI
 
 # Web app / interface
@@ -8,9 +8,8 @@ streamlit==1.36.0
 # Data & HTTP
 requests==2.32.3
 pydantic==2.8.2
-python-dotenv==1.0.1
 pandas==2.2.2
-python-dotenv
+python-dotenv==1.0.1
 
 # Database & vector search
 psycopg[binary,pool]==3.1.19    # PostgreSQL driver

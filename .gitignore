@@ -2,3 +2,5 @@ llmproject/
 .env/
 settingup.py/
 project_steps/
+.DS_Store
+__pycache__/

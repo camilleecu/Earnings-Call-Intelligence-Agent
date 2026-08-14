@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+ENV PIP_NO_CACHE_DIR=1
+
+RUN pip install --upgrade pip
+
+COPY requirements.txt .
+
+# CPU-only PyTorch: avoids downloading CUDA/NVIDIA packages.
+RUN pip install \
+    --index-url https://download.pytorch.org/whl/cpu \
+    torch==2.3.1+cpu
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src ./src
+
+CMD ["python", "-m", "src.scheduled_ingestion"]

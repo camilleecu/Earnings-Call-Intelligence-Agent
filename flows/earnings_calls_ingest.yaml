@@ -1,0 +1,19 @@
+id: earnings_calls_daily_ingest
+namespace: earnings_rag
+description: Daily ingestion of one rate-limited earnings-call batch
+
+tasks:
+  - id: ingest_batch
+    type: io.kestra.plugin.docker.Run
+    containerImage: earnings-rag-ingestion:latest
+    pullPolicy: NEVER
+    env:
+      ROIC_API_KEY: "{{ secret('ROIC_API_KEY') }}"
+      PG_CONN_STR: "{{ envs.PG_CONN_STR_DOCKER }}"
+      BATCH_SIZE: "5"
+      SLEEP_SECONDS_BETWEEN_CALLS: "70"
+
+triggers:
+  - id: daily_schedule
+    type: io.kestra.core.models.triggers.Schedule
+    cron: "0 3 * * *"

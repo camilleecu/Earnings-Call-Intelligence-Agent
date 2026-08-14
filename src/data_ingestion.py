@@ -128,13 +128,62 @@ def load_to_db(
                 )
 
 
+def transcript_exists(doc_id: str) -> bool:
+    """Return True if at least one stored chunk exists for doc_id."""
+    with psycopg.connect(conn_str) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT EXISTS (
+                    SELECT 1
+                    FROM earnings_chunks
+                    WHERE doc_id = %s
+                )
+                """,
+                (doc_id,),
+            )
+            return cur.fetchone()[0]
 
-def ingest_ticker(ticker: str) -> None:
+  
+
+def ingest_ticker(ticker: str) -> bool:
+    """
+    Fetch and ingest the latest transcript for a ticker.
+
+    Returns True when a new transcript was inserted and False when it
+    was already present.
+    """
     raw_transcript = fetch_data(ticker)
     normalized_transcript = normalize_example(raw_transcript)
-    chunks = chunk_text(normalized_transcript["text"], chunk_size=1000, overlap=150)
+    doc_id = normalized_transcript["doc_id"]
+
+    if transcript_exists(doc_id):
+        print(
+            f"[INFO] {ticker}: {doc_id} already exists; "
+            "skipping embedding and insertion."
+        )
+        return False
+
+    chunks = chunk_text(
+        normalized_transcript["text"],
+        chunk_size=1000,
+        overlap=150,
+    )
     embeddings = embed_chunks(chunks)
-    load_to_db(conn_str, normalized_transcript, chunks, embeddings)
+    load_to_db(
+        conn_str,
+        normalized_transcript,
+        chunks,
+        embeddings,
+    )
+
+    print(
+        f"[INFO] {ticker}: inserted {len(chunks)} chunks "
+        f"for {doc_id}."
+    )
+    return True
+
+
 
 
 
@@ -147,3 +196,15 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+
+
+"""
+ def ingest_ticker(ticker: str) -> None:
+    raw_transcript = fetch_data(ticker)
+    normalized_transcript = normalize_example(raw_transcript)
+    chunks = chunk_text(normalized_transcript["text"], chunk_size=1000, overlap=150)
+    embeddings = embed_chunks(chunks)
+    load_to_db(conn_str, normalized_transcript, chunks, embeddings)
+ """     
