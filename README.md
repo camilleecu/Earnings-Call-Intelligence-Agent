@@ -37,7 +37,7 @@ src/
 └── data/                  # Raw / processed transcript data
 ```
 
-> Note: this structure may be simplified or adjusted as the project is finalized.
+
 
 ## Retrieval Flow
 
@@ -116,13 +116,13 @@ Additional evaluation can include comparing different retrieval settings, differ
 
 ## Reproducibility
 
-The project is designed to be reproducible with clear scripts and environment setup. A complete version of the repository should include:
+### Prerequisites
 
-- installation instructions,
-- environment variables,
-- database setup steps,
-- ingestion or indexing commands,
-- and instructions for running the Streamlit app and dashboard.
+- Python 3.11+
+- Docker Desktop with Docker Compose
+- PostgreSQL with pgvector enabled
+- A ROIC.AI API key for earnings-call transcript ingestion
+- A Google Gemini API key for answer generation
 
 ## Installation
 
