@@ -1,6 +1,6 @@
 # LLMs
 google-genai==1.32.0
-openai==1.42.0                  # If you also want OpenAI
+# openai==1.42.0                  # If you also want OpenAI
 
 # Web app / interface
 streamlit==1.36.0
@@ -9,6 +9,7 @@ streamlit==1.36.0
 requests==2.32.3
 pydantic==2.8.2
 pandas==2.2.2
+numpy>=1.24,<2
 python-dotenv==1.0.1
 
 # Database & vector search

@@ -1,0 +1,66 @@
+query,expected_doc_ids
+What was Apple's total revenue in fiscal Q3 2026?,AAPL_2026Q3
+What did AAPL report for revenue in the June quarter?,AAPL_2026Q3
+How fast did Apple revenue grow year over year in Q3 2026?,AAPL_2026Q3
+What was Apple's gross margin in Q3 2026?,AAPL_2026Q3
+What was Apple's adjusted gross margin excluding the tariff refund benefit?,AAPL_2026Q3
+What was Apple's products gross margin?,AAPL_2026Q3
+How did Apple's services gross margin change sequentially?,AAPL_2026Q3
+What did Apple guide for total company revenue growth in the September quarter?,AAPL_2026Q3
+What did management guide for Apple's September-quarter gross margin?,AAPL_2026Q3
+What operating expense range did Apple provide for the September quarter?,AAPL_2026Q3
+What did Apple say about iPhone demand going into the September quarter?,AAPL_2026Q3
+What was iPhone revenue and its year-over-year growth?,AAPL_2026Q3
+How did Mac perform during Apple's June quarter?,AAPL_2026Q3
+What was Apple's Mac revenue in fiscal Q3 2026?,AAPL_2026Q3
+How did iPad revenue change year over year?,AAPL_2026Q3
+What did Apple say about its Services business?,AAPL_2026Q3
+How much Services revenue did Apple generate?,AAPL_2026Q3
+What was Apple's installed base of active devices?,AAPL_2026Q3
+How many paid subscriptions did Apple report?,AAPL_2026Q3
+What risks did Apple identify in its forward-looking statements?,AAPL_2026Q3
+What supply constraints did Apple discuss?,AAPL_2026Q3
+What caused Apple's supply constraints in the June quarter?,AAPL_2026Q3
+Which products were expected to be affected by supply constraints in September?,AAPL_2026Q3
+What did Apple say about rising memory costs?,AAPL_2026Q3
+How are memory prices expected to affect Apple beyond September?,AAPL_2026Q3
+What caused the sequential decline in Apple's gross margin outlook?,AAPL_2026Q3
+What did Apple say about foreign exchange headwinds?,AAPL_2026Q3
+What factors explain the expected slowdown in Apple's September-quarter growth?,AAPL_2026Q3
+What did Apple say about pricing in response to memory inflation?,AAPL_2026Q3
+"What was Apple's approach to balancing units, revenue, and margin?",AAPL_2026Q3
+What did Apple say about Siri AI and its early reception?,AAPL_2026Q3
+How does Apple plan to manage compute costs for Siri AI?,AAPL_2026Q3
+What did Apple say about AI running on-device versus in the cloud?,AAPL_2026Q3
+What did Apple say about launching Siri AI in Europe?,AAPL_2026Q3
+What did Apple say about launching Siri AI in China?,AAPL_2026Q3
+How much cash and marketable securities did Apple hold?,AAPL_2026Q3
+How much did Apple return to shareholders during the quarter?,AAPL_2026Q3
+How much did Apple spend on share repurchases?,AAPL_2026Q3
+What dividend did Apple's board declare?,AAPL_2026Q3
+What did Apple say about the Apple Upgrade program?,AAPL_2026Q3
+How did Apple describe demand for its latest product lineup?,AAPL_2026Q3
+What did management say about margins?,AAPL_2026Q3
+What did they say about margins?,AAPL_2026Q3|NEEDS_CONTEXT
+How is profitability trending?,AAPL_2026Q3
+What was Alphabet's revenue growth in Q2 2026?,GOOG_2026Q2
+How did Google Search revenue perform?,GOOG_2026Q2
+What was Google's Cloud revenue growth?,GOOG_2026Q2
+What was Google Cloud's backlog?,GOOG_2026Q2
+What did Alphabet say about demand for AI infrastructure?,GOOG_2026Q2
+What did Google say about Gemini Enterprise adoption?,GOOG_2026Q2
+How many developers were building with Google's models each month?,GOOG_2026Q2
+What did Alphabet guide for full-year 2026 CapEx?,GOOG_2026Q2
+Why did Alphabet increase its CapEx guidance?,GOOG_2026Q2
+What margin pressure did Google expect from third-party capacity?,GOOG_2026Q2
+What did Google say about supply constraints?,GOOG_2026Q2
+What did Sundar Pichai say about the AI opportunity and ROIC?,GOOG_2026Q2
+How is Google using TPUs for internal and external demand?,GOOG_2026Q2
+When will most TPU system sales revenue be recognized?,GOOG_2026Q2
+What was Alphabet's operating margin?,GOOG_2026Q2
+How did Google Cloud's operating margin change?,GOOG_2026Q2
+What risks or pressures did Alphabet mention for free cash flow?,GOOG_2026Q2
+What did Alphabet say about AI model release cadence?,GOOG_2026Q2
+What did Google say about Gemini remaining at the frontier?,GOOG_2026Q2
+What was YouTube advertising revenue growth?,GOOG_2026Q2
+What did Google say about AI Overviews and AI Mode affecting search queries?,GOOG_2026Q2
