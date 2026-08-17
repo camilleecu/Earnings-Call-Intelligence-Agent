@@ -6,6 +6,8 @@ from google import genai
 from google.genai import types
 
 from index import hybrid_search
+import time
+from src.metrics import LLMCallRecord, calculate_cost
 
 load_dotenv()
 
@@ -53,6 +55,7 @@ class TranscriptRAG:
         self.model = model
         self.instructions = instructions
         self.prompt_template = prompt_template
+        self.last_call = None
 
     def search(self, query: str, limit: int = 5) -> List[Dict[str, Any]]:
         """Retrieve the top transcript chunks using hybrid text + vector search."""
@@ -83,7 +86,9 @@ class TranscriptRAG:
         return self.prompt_template.format(question=query, context=context)
 
     def llm(self, prompt: str) -> str:
-        """Send the prompt to Gemini and return the generated answer text."""
+        """Send the prompt to Gemini, record usage metrics, and return text."""
+        start_time = time.time()
+
         response = self.client.models.generate_content(
             model=self.model,
             contents=prompt,
@@ -92,6 +97,22 @@ class TranscriptRAG:
                 temperature=0.2,
             ),
         )
+
+        response_time = time.time() - start_time
+        usage = response.usage_metadata
+
+        self.last_call = LLMCallRecord(
+            model=self.model,
+            prompt=prompt,
+            instructions=self.instructions,
+            answer=response.text,
+            prompt_tokens=usage.prompt_token_count or 0,
+            completion_tokens=usage.candidates_token_count or 0,
+            total_tokens=usage.total_token_count or 0,
+            response_time=response_time,
+            cost=calculate_cost(self.model, usage),
+        )
+
         return response.text
 
     def rag(self, query: str, limit: int = 5) -> Dict[str, Any]:

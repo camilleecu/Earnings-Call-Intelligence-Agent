@@ -64,6 +64,26 @@ The application provides a Streamlit-based user interface with:
 
 The interface is intentionally simple so users can focus on asking questions and reviewing grounded answers from earnings call transcripts.
 
+
+
+## Evaluation
+
+### Retrieval Evaluation Results
+
+Retrieval was evaluated on 30 earnings-call questions at \(k=5\).
+
+Two relevance levels are reported:
+
+- **Document-level:** at least one retrieved chunk belongs to the correct earnings-call transcript.
+- **Exact-chunk-level:** at least one retrieved chunk matches a labeled answer-bearing chunk, identified as `doc_id:chunk_index`.
+
+| Approach | Document Hit Rate@5 | Exact Chunk Hit Rate@5 | Document MRR@5 | Exact Chunk MRR@5 |
+|---|---:|---:|---:|---:|
+| Text search (PostgreSQL full-text search) | 0.833 | 0.567 | 0.789 | 0.483 |
+| Vector search (pgvector + all-MiniLM-L6-v2) | 0.700 | 0.300 | 0.667 | 0.267 |
+| Hybrid search (text + vector RRF) | 0.833 | 0.567 | 0.740 | 0.418 |
+
+
 ## Monitoring
 
 The project includes monitoring and logging features so usage can be tracked over time. Conversation records store fields such as:
@@ -87,20 +107,6 @@ A dashboard can display summary metrics such as:
 - response time over time,
 - and recent conversations.
 
-These metrics make it easier to evaluate system behavior and identify opportunities for improvement.
-
-
-
-## Evaluation
-
-The project can be evaluated on both retrieval quality and answer quality. Useful criteria include:
-
-- whether the top retrieved chunks are relevant,
-- whether the answer is grounded in the transcript,
-- whether the system avoids hallucinations,
-- and whether the response is concise and useful.
-
-Additional evaluation can include comparing different retrieval settings, different chunk sizes, and different prompting strategies.
 
 ## Reproducibility
 
@@ -111,6 +117,26 @@ Additional evaluation can include comparing different retrieval settings, differ
 - PostgreSQL with pgvector enabled
 - A ROIC.AI API key for earnings-call transcript ingestion
 - A Google Gemini API key for answer generation
+
+
+## Technology Stack
+
+| Component | Technology | Purpose |
+|---|---|---|
+| Language | Python 3.11 | Core application, ingestion, retrieval, and evaluation code |
+| Frontend | Streamlit | Interactive earnings-call Q&A application and monitoring dashboard |
+| LLM | Google Gemini 2.5 Flash | Generates concise, grounded answers from retrieved transcript context |
+| Data source | ROIC.AI API | Retrieves earnings-call transcripts for tracked public companies |
+| Orchestration | Kestra | Runs rate-limited, batch-based scheduled transcript ingestion |
+| Ingestion | Python + Docker | Fetches transcripts, normalizes text, chunks content, creates embeddings, and stores results |
+| Embeddings | sentence-transformers (`all-MiniLM-L6-v2`) | Converts transcript chunks and user queries into semantic vectors |
+| Text search | PostgreSQL Full-Text Search | Retrieves chunks using keyword matching and ranking |
+| Vector search | PostgreSQL + pgvector | Retrieves semantically similar transcript chunks using cosine distance |
+| Hybrid retrieval | Reciprocal Rank Fusion (RRF) | Combines ranked text-search and vector-search results |
+| Database | PostgreSQL + pgvector | Stores transcript chunks, embeddings, conversations, feedback, and monitoring metrics |
+| Monitoring | Streamlit dashboard | Displays conversation history, latency, token usage, and estimated LLM cost |
+| Evaluation | Python notebooks and scripts | Compares text, vector, and hybrid retrieval with Hit Rate@k and MRR |
+| Containerization | Docker and Docker Compose | Runs Kestra and its supporting PostgreSQL service locally |
 
 ## Installation
 

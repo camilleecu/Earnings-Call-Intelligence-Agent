@@ -4,3 +4,7 @@ settingup.py/
 project_steps/
 .DS_Store
 __pycache__/
+.env
+settingup
+.DS_Store
+src/.DS_Store
