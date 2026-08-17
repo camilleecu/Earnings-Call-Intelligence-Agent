@@ -23,7 +23,18 @@ The goal of this project is to create an interactive assistant that:
 - and presents the results through a Streamlit interface.
 
 
+## Ingestion Pipeline
 
+The ingestion pipeline prepares earnings-call transcripts for hybrid retrieval and runs automatically through Kestra.
+
+1. A Kestra scheduled flow launches the `earnings-rag-ingestion` Docker image.
+2. The ingestion job selects one batch from a predefined universe of tracked tickers.
+3. For each ticker, the pipeline requests the latest earnings-call transcript from the ROIC.AI API.
+4. The transcript is normalized and split into overlapping chunks.
+5. A SentenceTransformer model converts each chunk into a 384-dimensional embedding.
+6. Each chunk, its embedding, and metadata—including ticker, year, quarter, date, and source—are stored in PostgreSQL with pgvector.
+7. PostgreSQL automatically generates a weighted `text_search` value from the chunk text and metadata, enabling full-text search alongside vector search.
+8. The unique `(doc_id, chunk_index)` constraint makes ingestion idempotent: rerunning the pipeline does not insert duplicate chunks.
 
 ## Retrieval Flow
 
@@ -78,16 +89,7 @@ A dashboard can display summary metrics such as:
 
 These metrics make it easier to evaluate system behavior and identify opportunities for improvement.
 
-## Data Pipeline
 
-The data pipeline is responsible for preparing earnings call transcripts for retrieval. In general, it includes:
-
-- collecting transcript data,
-- cleaning and normalizing the text,
-- chunking transcripts into manageable passages,
-- generating embeddings,
-- storing searchable records in the database or vector index,
-- and making the content available to the retrieval layer.
 
 ## Evaluation
 
