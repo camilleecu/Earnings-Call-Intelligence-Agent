@@ -1,4 +1,5 @@
 # Earnings Call RAG Assistant
+![alt text](image.png)
 
 A Retrieval-Augmented Generation (RAG) application for querying earnings call transcripts with natural language. The system helps users quickly find relevant management commentary on topics such as revenue, margins, guidance, risks, and strategy without manually reading long transcripts.
 
@@ -21,21 +22,6 @@ The goal of this project is to create an interactive assistant that:
 - stores query and feedback data for monitoring and evaluation,
 - and presents the results through a Streamlit interface.
 
-## Project Structure
-
-```text
-src/
-├── app.py                 # Main Streamlit app
-├── dashboard.py           # Monitoring dashboard
-├── rag_helper_project.py  # RAG wrapper used by the app
-├── ingestion/             # Transcript ingestion and indexing logic
-├── db_init.py             # Database setup
-├── db_save.py             # Save conversations to Postgres
-├── db_query.py            # Query stored conversations and stats
-├── metrics.py             # Tracks latency, tokens, and cost
-├── evaluation_utils.py    # Utilities for evaluation experiments
-└── data/                  # Raw / processed transcript data
-```
 
 
 
@@ -146,6 +132,56 @@ Start the dashboard if it is in a separate app:
 
 ```bash
 streamlit run src/dashboard.py
+```
+
+## Project Structure
+
+```text
+llm_project2026/
+├── .env.example                    # Environment-variable template; never commit .env
+├── .gitignore
+├── docker-compose.yml              # Kestra and Kestra Postgres services
+├── Dockerfile.ingestion            # Docker image for scheduled transcript ingestion
+├── requirements.txt                # Python dependencies
+├── LICENSE
+├── README.md
+├── kestra_configuration.md         # Notes for configuring Kestra locally
+│
+├── data/
+│   ├── AAPL_2026Q3.json            # Example earnings-call transcript data
+│   ├── df.csv                      # Local data artifact
+│   ├── rag_ground_truth.csv        # Ground truth for answer-quality evaluation
+│   ├── rag_answers.csv             # Generated RAG answers
+│   ├── rag_answers_partial.csv     # Intermediate RAG answer results
+│   ├── rag_evaluations_partial.csv # Intermediate LLM evaluation results
+│   └── retrieval_ground_truth.csv  # Ground truth for retrieval evaluation
+│
+├── flows/
+│   └── earnings_calls_ingest.yaml  # Kestra flow for batch transcript ingestion
+│
+├── sql/
+│   ├── 01_init_db.sql              # Creates Postgres/pgvector database schema
+│   └── 02_migrate_text_search.sql  # Adds full-text-search support
+│
+├── src/
+│   ├── __init__.py
+│   ├── app.py                      # Main Streamlit RAG application
+│   ├── dashboard.py                # Streamlit monitoring dashboard
+│   ├── data_ingestion.py           # Fetches, chunks, embeds, and stores transcripts
+│   ├── scheduled_ingestion.py      # Batch-based, rate-limited transcript ingestion
+│   ├── index.py                    # Text, vector, and RRF hybrid retrieval
+│   ├── rag_helper_project.py       # RAG prompt construction and Gemini answer generation
+│   ├── db_init.py                  # Database initialization helpers
+│   ├── db_query.py                 # Reads saved conversations and monitoring data
+│   ├── db_save.py                  # Saves conversations and feedback to Postgres
+│   ├── evaluate_retrieval.py       # Hit Rate and MRR evaluation for retrieval methods
+│   └── rag_evaluation.py           # Evaluation of generated RAG answers
+│
+└── test_notebooks/
+    ├── test_data_ingestion.ipynb   # Ingestion experiments and checks
+    ├── test_retrieval.ipynb        # Manual retrieval tests
+    ├── retrieval_evaluation.ipynb  # Text vs. vector vs. hybrid retrieval evaluation
+    └── llm_evaluation.ipynb        # LLM/RAG answer evaluation
 ```
 
 ## Limitations
