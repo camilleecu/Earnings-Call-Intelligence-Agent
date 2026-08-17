@@ -1,5 +1,5 @@
 # Earnings Call RAG Assistant
-![alt text](image.png)
+![Earnings Call RAG](images/earning_call_agent.png)
 
 A Retrieval-Augmented Generation (RAG) application for querying earnings call transcripts with natural language. The system helps users quickly find relevant management commentary on topics such as revenue, margins, guidance, risks, and strategy without manually reading long transcripts.
 
