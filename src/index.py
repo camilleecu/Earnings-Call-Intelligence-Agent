@@ -103,7 +103,7 @@ def rrf_fuse(results_list: List[List[Dict[str, Any]]], k: int = 60) -> List[Dict
     fused: Dict[Any, Dict[str, Any]] = {}
 
     for results in results_list:
-        for rank, doc in enumerate(results):
+        for rank, doc in enumerate(results, start=1):
             doc_key = doc.get("id", doc.get("doc_id"))
             if doc_key not in fused:
                 fused[doc_key] = dict(doc)

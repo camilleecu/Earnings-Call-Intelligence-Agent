@@ -1,66 +1,31 @@
-query,expected_doc_ids
-What was Apple's total revenue in fiscal Q3 2026?,AAPL_2026Q3
-What did AAPL report for revenue in the June quarter?,AAPL_2026Q3
-How fast did Apple revenue grow year over year in Q3 2026?,AAPL_2026Q3
-What was Apple's gross margin in Q3 2026?,AAPL_2026Q3
-What was Apple's adjusted gross margin excluding the tariff refund benefit?,AAPL_2026Q3
-What was Apple's products gross margin?,AAPL_2026Q3
-How did Apple's services gross margin change sequentially?,AAPL_2026Q3
-What did Apple guide for total company revenue growth in the September quarter?,AAPL_2026Q3
-What did management guide for Apple's September-quarter gross margin?,AAPL_2026Q3
-What operating expense range did Apple provide for the September quarter?,AAPL_2026Q3
-What did Apple say about iPhone demand going into the September quarter?,AAPL_2026Q3
-What was iPhone revenue and its year-over-year growth?,AAPL_2026Q3
-How did Mac perform during Apple's June quarter?,AAPL_2026Q3
-What was Apple's Mac revenue in fiscal Q3 2026?,AAPL_2026Q3
-How did iPad revenue change year over year?,AAPL_2026Q3
-What did Apple say about its Services business?,AAPL_2026Q3
-How much Services revenue did Apple generate?,AAPL_2026Q3
-What was Apple's installed base of active devices?,AAPL_2026Q3
-How many paid subscriptions did Apple report?,AAPL_2026Q3
-What risks did Apple identify in its forward-looking statements?,AAPL_2026Q3
-What supply constraints did Apple discuss?,AAPL_2026Q3
-What caused Apple's supply constraints in the June quarter?,AAPL_2026Q3
-Which products were expected to be affected by supply constraints in September?,AAPL_2026Q3
-What did Apple say about rising memory costs?,AAPL_2026Q3
-How are memory prices expected to affect Apple beyond September?,AAPL_2026Q3
-What caused the sequential decline in Apple's gross margin outlook?,AAPL_2026Q3
-What did Apple say about foreign exchange headwinds?,AAPL_2026Q3
-What factors explain the expected slowdown in Apple's September-quarter growth?,AAPL_2026Q3
-What did Apple say about pricing in response to memory inflation?,AAPL_2026Q3
-"What was Apple's approach to balancing units, revenue, and margin?",AAPL_2026Q3
-What did Apple say about Siri AI and its early reception?,AAPL_2026Q3
-How does Apple plan to manage compute costs for Siri AI?,AAPL_2026Q3
-What did Apple say about AI running on-device versus in the cloud?,AAPL_2026Q3
-What did Apple say about launching Siri AI in Europe?,AAPL_2026Q3
-What did Apple say about launching Siri AI in China?,AAPL_2026Q3
-How much cash and marketable securities did Apple hold?,AAPL_2026Q3
-How much did Apple return to shareholders during the quarter?,AAPL_2026Q3
-How much did Apple spend on share repurchases?,AAPL_2026Q3
-What dividend did Apple's board declare?,AAPL_2026Q3
-What did Apple say about the Apple Upgrade program?,AAPL_2026Q3
-How did Apple describe demand for its latest product lineup?,AAPL_2026Q3
-What did management say about margins?,AAPL_2026Q3
-What did they say about margins?,AAPL_2026Q3|NEEDS_CONTEXT
-How is profitability trending?,AAPL_2026Q3
-What was Alphabet's revenue growth in Q2 2026?,GOOG_2026Q2
-How did Google Search revenue perform?,GOOG_2026Q2
-What was Google's Cloud revenue growth?,GOOG_2026Q2
-What was Google Cloud's backlog?,GOOG_2026Q2
-What did Alphabet say about demand for AI infrastructure?,GOOG_2026Q2
-What did Google say about Gemini Enterprise adoption?,GOOG_2026Q2
-How many developers were building with Google's models each month?,GOOG_2026Q2
-What did Alphabet guide for full-year 2026 CapEx?,GOOG_2026Q2
-Why did Alphabet increase its CapEx guidance?,GOOG_2026Q2
-What margin pressure did Google expect from third-party capacity?,GOOG_2026Q2
-What did Google say about supply constraints?,GOOG_2026Q2
-What did Sundar Pichai say about the AI opportunity and ROIC?,GOOG_2026Q2
-How is Google using TPUs for internal and external demand?,GOOG_2026Q2
-When will most TPU system sales revenue be recognized?,GOOG_2026Q2
-What was Alphabet's operating margin?,GOOG_2026Q2
-How did Google Cloud's operating margin change?,GOOG_2026Q2
-What risks or pressures did Alphabet mention for free cash flow?,GOOG_2026Q2
-What did Alphabet say about AI model release cadence?,GOOG_2026Q2
-What did Google say about Gemini remaining at the frontier?,GOOG_2026Q2
-What was YouTube advertising revenue growth?,GOOG_2026Q2
-What did Google say about AI Overviews and AI Mode affecting search queries?,GOOG_2026Q2
+query,expected_chunk_ids
+"What did Apple report for total revenue in fiscal Q3 2026?","AAPL_2026Q3:2|AAPL_2026Q3:16"
+"What gross margin did Apple report, and what drove the sequential change?","AAPL_2026Q3:16|AAPL_2026Q3:17|AAPL_2026Q3:55|AAPL_2026Q3:56"
+"What did Apple guide for revenue growth and gross margin in the September quarter?","AAPL_2026Q3:25|AAPL_2026Q3:26"
+"What supply constraints did Apple expect to affect iPhone, Mac, and iPad?","AAPL_2026Q3:25|AAPL_2026Q3:29|AAPL_2026Q3:30|AAPL_2026Q3:31"
+"What did Apple say about rising memory costs and their impact beyond September?","AAPL_2026Q3:32|AAPL_2026Q3:33"
+"What was Alphabet's revenue growth in Q2 2026?","GOOG_2026Q2:1|GOOG_2026Q2:22"
+"How did Google Cloud revenue and operating margin perform?","GOOG_2026Q2:26|GOOG_2026Q2:27"
+"What did Alphabet guide for full-year 2026 CapEx, and why was it increased?","GOOG_2026Q2:29"
+"What did Google say about AI infrastructure demand and supply constraints?","GOOG_2026Q2:1|GOOG_2026Q2:3|GOOG_2026Q2:28|GOOG_2026Q2:29"
+"How did Alphabet describe the AI opportunity and expected ROIC?","GOOG_2026Q2:32|GOOG_2026Q2:33"
+"What was Microsoft's fiscal Q4 2026 revenue and year-over-year growth?","MSFT_2026Q4:22"
+"How did Microsoft Cloud revenue perform, and what was its gross margin?","MSFT_2026Q4:26"
+"What did Microsoft say about Azure demand exceeding available capacity?","MSFT_2026Q4:29|MSFT_2026Q4:30"
+"What is Microsoft's outlook for FY27 capital expenditures and operating margins?","MSFT_2026Q4:34|MSFT_2026Q4:35|MSFT_2026Q4:36"
+"How is Microsoft monetizing Copilot through seats, premium offerings, and usage-based billing?","MSFT_2026Q4:27|MSFT_2026Q4:28|MSFT_2026Q4:39"
+"What were Meta's key community and engagement milestones in Q2 2026?","META_2026Q2:1"
+"How is Meta using AI to improve its core business?","META_2026Q2:2"
+"What did Meta say about personal agents and future revenue opportunities?","META_2026Q2:2"
+"Why does Meta believe it must continue developing proprietary frontier models?","META_2026Q2:63|META_2026Q2:64|META_2026Q2:65|META_2026Q2:66|META_2026Q2:67|META_2026Q2:68"
+"How is Meta planning its AI capacity investments for 2026 and 2027?","META_2026Q2:63|META_2026Q2:69|META_2026Q2:70"
+"What did Intel say about customer interest in its external foundry business?","INTC_2026Q2:40|INTC_2026Q2:41|INTC_2026Q2:42"
+"What did Intel say about its 14A process technology timeline?","INTC_2026Q2:41"
+"How is Intel allocating its 2026 CapEx?","INTC_2026Q2:42|INTC_2026Q2:43"
+"What balance-sheet resources does Intel have to fund investment?","INTC_2026Q2:44|INTC_2026Q2:45|INTC_2026Q2:46"
+"What did Intel say about demand for Granite Rapids servers?","INTC_2026Q2:47|INTC_2026Q2:48"
+"What did Robinhood say about growth in platform assets and adjusted EBITDA since its IPO?","LRCX_2026Q2:2"
+"What are Robinhood's three strategic priorities?","LRCX_2026Q2:3"
+"How did Robinhood describe demand and monetization for prediction markets or crypto products?","LRCX_2026Q2:67|LRCX_2026Q2:71|LRCX_2026Q2:72|LRCX_2026Q2:73"
+"How did Robinhood's July trading activity compare with Q2?","LRCX_2026Q2:72"
+"What did Robinhood say about the impact of removing the Pattern Day Trading rule?","LRCX_2026Q2:76"

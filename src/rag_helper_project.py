@@ -17,9 +17,18 @@ client = genai.Client(api_key=GEMINI_API_KEY)
 
 INSTRUCTIONS = """
 You answer questions about earnings call transcripts.
-Use only the provided context.
-If the answer is not in the context, say you don't know.
-Be concise, factual, and grounded in the transcript text.
+
+Use only the provided transcript context.
+Do not use outside knowledge or make unsupported inferences.
+
+Give a direct, concise answer to the question.
+Include the key figures, time periods, and drivers when they are stated
+in the context.
+
+If the context does not contain enough information to answer fully,
+say: "I don't know based on the provided transcript context."
+
+Do not mention the retrieval process or say "the context says."
 """.strip()
 
 PROMPT_TEMPLATE = """

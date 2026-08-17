@@ -13,8 +13,9 @@ Input:
 Output:
 - data/retrieval_evaluation_details.csv
 """
-
+from __future__ import annotations
 import csv
+from pathlib import Path
 from typing import Any, Callable
 
 from dotenv import load_dotenv
@@ -27,47 +28,52 @@ GROUND_TRUTH_PATH = "data/retrieval_ground_truth.csv"
 DETAILS_OUTPUT_PATH = "data/retrieval_evaluation_details.csv"
 K_VALUES = [1, 3, 5, 10]
 
-SearchFunction = Callable[[str, int], list[dict[str, Any]]]
+SearchFunction = Callable[..., list[dict[str, Any]]]
+
+
+def make_chunk_id(doc_id: str, chunk_index: int | str) -> str:
+    return f"{doc_id}:{int(chunk_index)}"
+
+
+def split_chunk_id(chunk_id: str) -> tuple[str, int]:
+    doc_id, chunk_index = chunk_id.rsplit(":", 1)
+    return doc_id, int(chunk_index)
 
 
 def load_ground_truth(path: str) -> list[dict[str, Any]]:
-    """
-    Load retrieval questions and expected transcript IDs from a CSV file.
-
-    The CSV must contain:
-    - query
-    - expected_doc_ids
-
-    Multiple acceptable transcript IDs can be separated with `|`.
-    """
+    """Load expected exact chunks and derive expected transcript IDs."""
     records = []
-
     with open(path, newline="", encoding="utf-8") as file:
         for row in csv.DictReader(file):
-            expected_doc_ids = {
+            expected_chunk_ids = {
                 value.strip()
-                for value in row["expected_doc_ids"].split("|")
+                for value in row["expected_chunk_ids"].split("|")
                 if value.strip()
             }
-
-            records.append(
-                {
-                    "query": row["query"],
-                    "expected_doc_ids": expected_doc_ids,
-                }
-            )
-
+            expected_doc_ids = {
+                split_chunk_id(chunk_id)[0]
+                for chunk_id in expected_chunk_ids
+            }
+            record = {
+                "query": row["query"],
+                "expected_doc_ids": expected_doc_ids,
+                "expected_chunk_ids": expected_chunk_ids,
+            }
+            if row.get("category"):
+                record["category"] = row["category"]
+            records.append(record)
     return records
 
 
-def result_doc_id(result: dict[str, Any]) -> str | None:
-    """
-    Return the transcript-level ID from one retrieved chunk.
 
-    Each transcript is divided into chunks, but all chunks from the same
-    transcript share the same `doc_id`.
-    """
-    return result.get("doc_id")
+def result_doc_id(result: dict[str, Any]) -> str:
+    return str(result["doc_id"])
+
+
+def result_chunk_id(result: dict[str, Any]) -> str:
+    if result.get("chunk_id"):
+        return str(result["chunk_id"])
+    return make_chunk_id(result["doc_id"], result["chunk_index"])
 
 
 def retrieve(
@@ -75,9 +81,6 @@ def retrieve(
     query: str,
     k: int,
 ) -> list[dict[str, Any]]:
-    """
-    Run one search function and return its top-k results.
-    """
     return search_function(query=query, limit=k)
 
 
@@ -85,34 +88,39 @@ def hit_at_k(
     results: list[dict[str, Any]],
     expected_doc_ids: set[str],
 ) -> int:
-    """
-    Return 1 if any top-k result belongs to an expected transcript.
+    return int(any(
+        result_doc_id(result) in expected_doc_ids
+        for result in results
+    ))
 
-    Return 0 when none of the retrieved chunks belongs to an expected
-    transcript.
-    """
-    return int(
-        any(
-            result_doc_id(result) in expected_doc_ids
-            for result in results
-        )
-    )
+
+def exact_chunk_hit_at_k(
+    results: list[dict[str, Any]],
+    expected_chunk_ids: set[str],
+) -> int:
+    return int(any(
+        result_chunk_id(result) in expected_chunk_ids
+        for result in results
+    ))
 
 
 def reciprocal_rank(
     results: list[dict[str, Any]],
     expected_doc_ids: set[str],
 ) -> float:
-    """
-    Return the reciprocal rank of the first relevant result.
-
-    Rank 1 returns 1.0, rank 2 returns 0.5, rank 3 returns 0.333,
-    and no relevant result returns 0.0.
-    """
     for rank, result in enumerate(results, start=1):
         if result_doc_id(result) in expected_doc_ids:
             return 1.0 / rank
+    return 0.0
 
+
+def exact_chunk_reciprocal_rank(
+    results: list[dict[str, Any]],
+    expected_chunk_ids: set[str],
+) -> float:
+    for rank, result in enumerate(results, start=1):
+        if result_chunk_id(result) in expected_chunk_ids:
+            return 1.0 / rank
     return 0.0
 
 
@@ -121,98 +129,94 @@ def evaluate_search_function(
     ground_truth: list[dict[str, Any]],
     k: int,
 ) -> dict[str, Any]:
-    """
-    Evaluate one search function across all ground-truth questions.
-
-    Returns overall Hit Rate@k, MRR@k, and query-level details for
-    investigating retrieval failures.
-    """
-    hits = []
-    reciprocal_ranks = []
     details = []
 
     for record in ground_truth:
         results = retrieve(search_function, record["query"], k)
+        expected_doc_ids = record["expected_doc_ids"]
+        expected_chunk_ids = record["expected_chunk_ids"]
 
-        hit = hit_at_k(
-            results,
-            record["expected_doc_ids"],
-        )
+        details.append({
+            "query": record["query"],
+            "category": record.get("category", ""),
+            "expected_doc_ids": "|".join(sorted(expected_doc_ids)),
+            "expected_chunk_ids": "|".join(sorted(expected_chunk_ids)),
+            "retrieved_doc_ids": "|".join(
+                result_doc_id(result) for result in results
+            ),
+            "retrieved_chunk_ids": "|".join(
+                result_chunk_id(result) for result in results
+            ),
+            "doc_hit": hit_at_k(results, expected_doc_ids),
+            "chunk_hit": exact_chunk_hit_at_k(results, expected_chunk_ids),
+            "doc_reciprocal_rank": reciprocal_rank(results, expected_doc_ids),
+            "chunk_reciprocal_rank": exact_chunk_reciprocal_rank(
+                results, expected_chunk_ids
+            ),
+        })
 
-        rank_score = reciprocal_rank(
-            results,
-            record["expected_doc_ids"],
-        )
-
-        hits.append(hit)
-        reciprocal_ranks.append(rank_score)
-
-        details.append(
-            {
-                "query": record["query"],
-                "expected_doc_ids": "|".join(
-                    sorted(record["expected_doc_ids"])
-                ),
-                "retrieved_doc_ids": "|".join(
-                    result_doc_id(result) or ""
-                    for result in results
-                ),
-                "hit": hit,
-                "reciprocal_rank": rank_score,
-            }
-        )
-
-    query_count = len(ground_truth)
-
+    query_count = len(details)
     return {
-        "hit_rate": sum(hits) / query_count if query_count else 0.0,
-        "mrr": (
-            sum(reciprocal_ranks) / query_count
-            if query_count
-            else 0.0
+        "queries": query_count,
+        "k": k,
+        "doc_hit_rate": (
+            sum(row["doc_hit"] for row in details) / query_count
+            if query_count else 0.0
+        ),
+        "chunk_hit_rate": (
+            sum(row["chunk_hit"] for row in details) / query_count
+            if query_count else 0.0
+        ),
+        "doc_mrr": (
+            sum(row["doc_reciprocal_rank"] for row in details) / query_count
+            if query_count else 0.0
+        ),
+        "chunk_mrr": (
+            sum(row["chunk_reciprocal_rank"] for row in details) / query_count
+            if query_count else 0.0
         ),
         "details": details,
     }
 
 
-def save_details(
-    details: list[dict[str, Any]],
-    path: str,
-) -> None:
-    """
-    Save query-level evaluation results to a CSV file.
-
-    The output can be filtered by `hit == 0` to inspect failed queries.
-    """
+def save_details(details: list[dict[str, Any]], path: str) -> None:
     fieldnames = [
         "method",
         "k",
         "query",
+        "category",
         "expected_doc_ids",
+        "expected_chunk_ids",
         "retrieved_doc_ids",
-        "hit",
-        "reciprocal_rank",
+        "retrieved_chunk_ids",
+        "doc_hit",
+        "chunk_hit",
+        "doc_reciprocal_rank",
+        "chunk_reciprocal_rank",
     ]
-
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(details)
 
 
+def print_failures(evaluation: dict[str, Any]) -> None:
+    for row in evaluation["details"]:
+        if not row["doc_hit"] or not row["chunk_hit"]:
+            print(f"Query: {row['query']}")
+            print(f"Expected documents: {row['expected_doc_ids']}")
+            print(f"Retrieved documents: {row['retrieved_doc_ids']}")
+            print(f"Expected chunks: {row['expected_chunk_ids']}")
+            print(f"Retrieved chunks: {row['retrieved_chunk_ids']}")
+            print()
+
+
 def main() -> None:
-    """
-    Evaluate text, vector, and hybrid retrieval at several k values.
-
-    The ambiguous `NEEDS_CONTEXT` query is excluded because it represents
-    a clarification case rather than a normal transcript-retrieval case.
-    """
     ground_truth = load_ground_truth(GROUND_TRUTH_PATH)
-
     ground_truth = [
-        record
-        for record in ground_truth
-        if "NEEDS_CONTEXT" not in record["expected_doc_ids"]
+        record for record in ground_truth
+        if "NEEDS_CONTEXT" not in record["expected_chunk_ids"]
     ]
 
     search_methods = {
@@ -222,38 +226,32 @@ def main() -> None:
     }
 
     all_details = []
-
     for method_name, search_function in search_methods.items():
         print(f"\n=== {method_name.upper()} ===")
-
         for k in K_VALUES:
             evaluation = evaluate_search_function(
                 search_function=search_function,
                 ground_truth=ground_truth,
                 k=k,
             )
-
             print(
                 f"k={k}: "
-                f"hit_rate={evaluation['hit_rate']:.3f}, "
-                f"mrr={evaluation['mrr']:.3f}"
+                f"doc_hit_rate={evaluation['doc_hit_rate']:.3f}, "
+                f"chunk_hit_rate={evaluation['chunk_hit_rate']:.3f}, "
+                f"doc_mrr={evaluation['doc_mrr']:.3f}, "
+                f"chunk_mrr={evaluation['chunk_mrr']:.3f}"
+            )
+            all_details.extend(
+                {
+                    "method": method_name,
+                    "k": k,
+                    **detail,
+                }
+                for detail in evaluation["details"]
             )
 
-            for detail in evaluation["details"]:
-                all_details.append(
-                    {
-                        "method": method_name,
-                        "k": k,
-                        **detail,
-                    }
-                )
-
     save_details(all_details, DETAILS_OUTPUT_PATH)
-
-    print(
-        f"\nDetailed results saved to: "
-        f"{DETAILS_OUTPUT_PATH}"
-    )
+    print(f"\nDetailed results saved to: {DETAILS_OUTPUT_PATH}")
 
 
 if __name__ == "__main__":
