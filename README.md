@@ -151,8 +151,8 @@ A dashboard can display summary metrics such as:
 ## Installation
 
 ```bash
-git clone <repo-url>
-cd <repo-folder>
+git clone <https://github.com/camilleecu/Earnings-Call-Intelligence-Agent>
+cd <llm_project2026>
 pip install -r requirements.txt
 ```
 
