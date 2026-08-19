@@ -95,14 +95,17 @@ Two relevance levels are reported:
 
 
 ### LLM-as-a-Judge Evaluation Results
-The full RAG pipeline was evaluated by comparing each generated answer with a reference answer. An LLM judge classified each answer as good or bad based on factual correctness, completeness, and whether it directly answered the question.
-| Metric                             | Result |
-| ---------------------------------- | ------ |
-| RAG answers                        | 15     |
-| Judge-scored answers               | 15     |
-| Good answers                       | 5      |
-| Bad answers                        | 10     |
-| RAG answer quality         | 33.3%  |
+The full RAG pipeline was evaluated by comparing each generated answer with a reference answer, measuring Context Relevance, Faithfulness / Groundedness, Answer Relevance, and an overall Judge Score across 15 queries.
+
+##### without rewriting:
+| Metric | Result | 
+| Total Queries Evaluated | 15 | 
+| Good Answers (≥0.80 Judge Score) | 7 | 
+| Suboptimal / Bad Answers (<0.80 Judge Score) | 8 | 
+| Mean Context Relevance | 64.0% | 
+| Mean Faithfulness / Groundedness | 87.7% | 
+| Mean Answer Relevance | 54.3% | 
+| Average Judge Score (Overall RAG Quality) | 52.3% | 
 
 ## Monitoring
 
@@ -127,7 +130,7 @@ A dashboard can display summary metrics such as:
 - response time over time,
 - and recent conversations.
 
-| ![Dashboard](images/dashboard1.png)<br> | ![Dashboard 2](images/dashboard2.png)<br>Caption 2 |
+| ![Dashboard](images/dashboard1.png)<br> | ![Dashboard 2](images/dashboard2.png)<br> |
 | ----------------------------------- | ----------------------------------- |
 
 

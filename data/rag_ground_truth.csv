@@ -1,0 +1,93 @@
+query,expected_chunk_ids,reference_answer
+"What did Apple say about the upcoming advanced manufacturing center in Houston?","AAPL_2026Q3:13","Location & Current Use: Located in a facility currently used to assemble advanced AI servers.
+
+Production Expansion: Apple will begin manufacturing the Mac mini there later this year.
+
+Purpose & Goals: The center will teach students, supplier employees, and businesses of all sizes the innovative processes Apple uses to empower American manufacturers and strengthen the U.S. advanced manufacturing ecosystem."
+"What is the Apple Upgrade program and what benefits does it offer to customers?","AAPL_2026Q3:30","Program Overview: A leasing plan offered in U.S. retail stores designed to make it easier and more affordable for customers to get Apple's latest devices on a schedule.
+
+Benefits: Leverages the higher residual value of Apple products relative to competitors to provide an affordable entry point for regular upgrades."
+"How are changes to the App Store business model and the Supreme Court appeal impacting Apple's services?","AAPL_2026Q3:39","Legal Status: Apple continues operating under a U.S. court ruling affecting link-out transactions while its appeal is set to be heard by the Supreme Court.
+
+Performance Impact: Despite business model changes, the App Store set a June quarter revenue record. Overall Services achieved double-digit growth in cloud, video, payment services, and advertising, with overall paid subscriptions surpassing 1.5 billion."
+"How is AMD managing its supply chain for CPU, GPU, and networking components?","AMD_2026Q2:43","End-to-End Buildout: AMD is managing and securing the entire supply chain covering silicon CPU, GPU, networking components, and Helios components.
+
+Operator Collaboration: AMD works closely with data center operators to gain operational visibility and accelerate the deployment of AI compute capacity."
+"What did Lisa Su say about the trajectory and guidance for the server CPU market in 2027?","AMD_2026Q2:40","Server CPU Trajectory: Server CPU growth in 2027 is projected to be more than 70% year-over-year.
+
+Data Center & AI Growth: The overall Data Center business and Data Center AI business are both expected to grow well over 100% in 2027, driven by strategic customer demand and the Helios ramp."
+"How did AMD address the question regarding supply constraints in the server CPU business?","AMD_2026Q2:46","Current Status: Server CPU supply remains tight in 2026 due to unforecasted demand during the first half of the year.
+
+2027 Outlook: Supply conditions are expected to improve in 2027 as demand is better forecasted, giving AMD confidence in satisfying over 70% year-over-year growth with upside potential."
+"How does the XPU platform help provide compute capacity for Frontier model customers?","AVGO_2026Q2:33|AVGO_2026Q2:36","Capacity Delivery: The XPU platform provides compute capacity directly through cloud, SaaS, and API infrastructure (e.g., Bedrock, Vertex, Azure) to major frontier model developers generating tokens for consumer and enterprise use.
+
+Infrastructure Planning: Broadcom utilizes long lead times (extending to 2028) to build out capacity and address non-component constraints such as power and global/U.S. network connections."
+"How far out does Broadcom's visibility run due to the huge demand and recent orders?","AVGO_2026Q2:36","Broadcom's visibility currently extends all the way to 2028 (up from 2027 three months prior)."
+"What agreements did Broadcom mention regarding Anthropic's access to TPU-based compute?","AVGO_2026Q2:4","2026 Commitment: Providing access to over 1 gigawatt of Broadcom TPU-based compute.
+
+2027+ Agreement: Signed an agreement in April enabling Anthropic to access an additional 5 gigawatts of next-generation TPU-based compute starting in 2027."
+"What was Alphabet's consolidated revenue growth and constant currency growth for the second quarter?","GOOG_2026Q2:19","Consolidated Revenue: $119.8 billion.
+
+Reported Growth: 24% year-over-year.
+
+Constant Currency Growth: 23% year-over-year."
+"What is Alphabet's perspective on evaluating a change in the corporate structure for Waymo?","GOOG_2026Q2:48|GOOG_2026Q2:49","Alphabet is currently focused on executing, scaling, and realizing Waymo's potential within its existing Other Bets structure.
+
+Alphabet emphasizes that its ability to provide long-term funding, stability, and strategic support is highly valuable for Waymo's road map."
+"How are long-term deals renewing for Google according to their latest earnings call?","GOOG_2026Q2:49","Existing long-term deals are renewing with exceptional demand on a forward-looking basis, creating healthier dynamics than the prior year and reinforcing confidence in compute capacity investments."
+"What is the focus of Robinhood Ventures and how does it relate to the company's growth?","LRCX_2026Q4:47","Focus: Allows individual investors to gain investment exposure to companies across their entire life cycle, starting at the early stage.
+
+Relation to Growth: Serves as one of multiple strategic vectors supporting Robinhood's goal to 10x the business over the next 10 years."
+"Who were the key executives participating in Robinhood's Q2 2026 earnings call?","LRCX_2026Q4:0","Vlad Tenev: Chairman and CEO
+
+Shiv Verma: Chief Financial Officer (CFO)
+
+Chris Koegel: VP of Corporate Finance and Investor Relations"
+"What is the timeline for releasing the feed ranking algorithm and tuning the posts?","LRCX_2026Q4:22","Robinhood is iterating and tuning the feed ranking algorithm, functionality, and posts to roll it out to everyone by the end of the quarter."
+"Who joined Chad Heaton to discuss Meta's second quarter 2026 results?","META_2026Q2:0","Mark Zuckerberg: Chief Executive Officer (CEO)
+
+Susan Li: Chief Financial Officer (CFO)"
+"What is Meta One and what features does it offer to users?","META_2026Q2:5","Overview: A new subscription offering.
+
+Features: Provides additional tools and AI features across Meta's suite of applications, with plans for multiple subscription tiers and pricing options as demand grows."
+"How does Meta plan to maximize the opportunity by investing in building out data centers?","META_2026Q2:46","Meta is investing ahead of lead times to build data centers that will enhance core ranking, recommendations, and ads once online, capturing large demand across its business lines."
+"Which customers are using Microsoft's Cobalt VMs for their workloads?","MSFT_2026Q4:5","External customers include Adobe, Arm, Elastic, OpenAI, Sprinklr, and TomTom (in addition to Microsoft's first-party workloads)."
+"What did Microsoft project for total company revenue and operating expenses in their guidance?","MSFT_2026Q4:34","Total Company Revenue: $89.85 billion to $90.95 billion (16% to 17% growth).
+
+Operating Expenses: $16.8 billion to $16.9 billion (7% to 8% growth, driven by R&D compute capacity and talent investments)."
+"Who were the executives listed as participating in the Microsoft Q4 2026 earnings call?","MSFT_2026Q4:0","Satya Nadella: Chairman and CEO
+
+Amy Hood: Chief Financial Officer
+
+Alice Jolla: Chief Accounting Officer
+
+Brian DeFoe: Deputy General Counsel and Corporate Secretary
+
+Jonathan Neilson: VP of Investor Relations (Host)"
+"How is the Vera Rubin architecture expected to impact Nvidia's share of the inference market?","NVDA_2027Q1:27","Nvidia is expanding inference share rapidly across frontier model developers (including Cursor, Perplexity, TML, Reflection, and Anthropic).
+
+As Vera Rubin comes online in late 2026/2027, its extreme co-engineering will support significant capacity deployments for partners like Anthropic, further extending Nvidia's inference market leadership."
+"How does Nvidia describe the second category of AI natives and OEMs?","NVDA_2027Q1:39|NVDA_2027Q1:26","Composition: Comprises AI natives, OEMs, and enterprise/industrial clients.
+
+Approach: Nvidia builds vertically integrated platforms, then disassembles them so customers can configure, assemble, rent, and finance them based on their specific needs.
+
+Adoption Rate: Develops slower than hyperscalers because enterprise/industrial deployment requires high capability, safety, and clear productivity returns."
+"Why are the installations for the second category considered relatively small compared to hyperscalers?","NVDA_2027Q1:26","Because the category is fragmented across a large number of smaller individual companies and enterprises, each making smaller individual infrastructure deployments relative to massive hyperscaler builds."
+"What are Elon Musk's thoughts on upgrading cars with Hardware 4 for future FSD versions?","TSLA_2026Q2:43","Musk stated it will be financially sensible to upgrade all pre-Hardware 4 camera-equipped cars to next-generation AI boards.
+
+Future upgrade paths include an upgraded AI chip (moderate improvement over HW4 targeted for mid-2027 production) or AI5 (targeted for mid-2027 volume production)."
+"When does Tesla expect to get self-driving working on the Tesla Semi?","TSLA_2026Q2:40","Tesla expects self-driving to work on the Tesla Semi around the end of this year or early next year, ahead of high-volume production scaling."
+"What did Vaibhav Taneja say about Tesla's CapEx spend on scaling factories like Optimus and Cybercab?","TSLA_2026Q2:46","Productive Assets: All CapEx spend goes toward productive assets, including scaling factories for Optimus, Cybercab, the LFP factory, the Semi factory, an in-house semiconductor fab, and expanding U.S. solar manufacturing.
+
+Execution: Tesla serves as its own general contractor for almost all construction facilities starting from ground zero."
+"What are the expected speed and power improvements of the A14 node compared to N2?","TSM_2026Q2:13","Speed Improvement: 10% to 15% at the same power.
+
+Power Improvement: 25% to 30% at the same speed.
+
+Density Gain: Close to 20% chip density gain."
+"How did C.C. Wei respond to questions about TSMC's wafer pricing strategy?","TSM_2026Q2:30","TSMC views itself as a long-term partner committed to customer success without pricing them out of the market.
+
+TSMC avoids sudden drastic price increases (e.g., 4x or 5x), focusing on earning its value and maintaining gross margins necessary to support long-term expansion for both TSMC and its customers."
+"What is TSMC's outlook and revenue guidance for the next several years?","TSM_2026Q2:39","Outlook: Expects the next few years to be a ""very good business for TSMC.""
+
+Primary Driver: Demand across all segments is driven entirely by AI-related demand."
