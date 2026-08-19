@@ -127,7 +127,7 @@ A dashboard can display summary metrics such as:
 - response time over time,
 - and recent conversations.
 
-| ![Dashboard](dashboard1.png)<br> | ![Dashboard 2](dashboard2.png)<br>Caption 2 |
+| ![Dashboard](images/dashboard1.png)<br> | ![Dashboard 2](images/dashboard2.png)<br>Caption 2 |
 | ----------------------------------- | ----------------------------------- |
 
 
@@ -235,23 +235,10 @@ llm_project2026/
     └── llm_evaluation.ipynb        # LLM/RAG answer evaluation
 ```
 
-## Limitations
-
-This project is a draft implementation and may still have limitations such as:
-
-- incomplete transcript coverage,
-- dependence on retrieval quality,
-- limited evaluation data,
-- and possible formatting differences across transcript sources.
-
-The final version should document these limitations clearly.
 
 ## Future Work
 
 Potential next steps include:
-
-- improving retrieval with better chunking or reranking,
-- adding filters for ticker, year, and quarter,
 - expanding evaluation metrics,
 - improving citation display in the UI,
 - and refining monitoring dashboards.
