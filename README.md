@@ -92,7 +92,7 @@ The full RAG pipeline was evaluated by comparing each generated answer with a re
 | Judge-scored answers               | 15     |
 | Good answers                       | 5      |
 | Bad answers                        | 10     |
-| Partial RAG answer quality         | 33.3%  |
+| RAG answer quality         | 33.3%  |
 
 ## Monitoring
 
@@ -245,7 +245,8 @@ Potential next steps include:
 
 ## License
 
-To be added.
+MIT License.
+
 
 ## Acknowledgments
 
