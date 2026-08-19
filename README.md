@@ -118,7 +118,7 @@ A dashboard can display summary metrics such as:
 - cost over time,
 - response time over time,
 - and recent conversations.
-![Monitoring](images/dashboard.png)
+![Dashboard](dashboard1.png) ![Dashboard 2](dashboard2.png)
 
 ## Reproducibility
 
