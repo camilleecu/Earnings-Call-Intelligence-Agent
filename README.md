@@ -79,11 +79,19 @@ Two relevance levels are reported:
 - **Document-level:** at least one retrieved chunk belongs to the correct earnings-call transcript.
 - **Exact-chunk-level:** at least one retrieved chunk matches a labeled answer-bearing chunk, identified as `doc_id:chunk_index`.
 
+##### without re-writing:
 | Approach | Document Hit Rate@5 | Exact Chunk Hit Rate@5 | Document MRR@5 | Exact Chunk MRR@5 |
 |---|---:|---:|---:|---:|
-| Text search (PostgreSQL full-text search) | 0.833 | 0.567 | 0.789 | 0.483 |
-| Vector search (pgvector + all-MiniLM-L6-v2) | 0.700 | 0.300 | 0.667 | 0.267 |
-| Hybrid search (text + vector RRF) | 0.833 | 0.567 | 0.740 | 0.418 |
+| Text search (PostgreSQL full-text search) | 1.000 | 0.967 | 0.967 | 0.815 |
+| Vector search (pgvector + all-MiniLM-L6-v2) | 0.600 | 0.167 | 0.544 | 0.167 |
+| Hybrid search (text + vector RRF) | 1.000 | 0.933 | 0.961 | 0.736 |
+
+##### with re-writing:
+| Approach | Document Hit Rate@5 | Exact Chunk Hit Rate@5 | Document MRR@5 | Exact Chunk MRR@5 |
+|---|---:|---:|---:|---:|
+| Text search (PostgreSQL full-text search) | 0.967 | 0.833 | 0.806 | 0.592 |
+| Vector search (pgvector + all-MiniLM-L6-v2) | 0.600 | 0.167 | 0.544 | 0.167 |
+| Hybrid search (text + vector RRF) | 0.967 | 0.833 | 0.828 | 0.482 |
 
 
 ### LLM-as-a-Judge Evaluation Results
@@ -119,9 +127,9 @@ A dashboard can display summary metrics such as:
 - response time over time,
 - and recent conversations.
 
+| ![Dashboard](dashboard1.png)<br> | ![Dashboard 2](dashboard2.png)<br>Caption 2 |
+| ----------------------------------- | ----------------------------------- |
 
-![Dashboard](dashboard1.png) 
-![Dashboard 2](dashboard2.png)
 
 ## Reproducibility
 
