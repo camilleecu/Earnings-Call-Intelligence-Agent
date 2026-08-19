@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS earnings_chunks (
     text_search tsvector GENERATED ALWAYS AS (
         setweight(
             to_tsvector(
-                'simple',
+                'english',
                 coalesce(symbol, '') || ' ' ||
                 coalesce(year::text, '') || ' ' ||
                 coalesce(quarter::text, '')

@@ -33,6 +33,7 @@ say: "I don't know based on the provided transcript context."
 Do not mention the retrieval process or say "the context says."
 """.strip()
 
+
 PROMPT_TEMPLATE = """
 Question:
 {question}
@@ -42,11 +43,12 @@ Context:
 """.strip()
 
 
+
 class TranscriptRAG:
     def __init__(
         self,
         client,
-        model: str = "gemini-2.5-flash",
+        model: str = "gemini-3.6-flash",
         instructions: str = INSTRUCTIONS,
         prompt_template: str = PROMPT_TEMPLATE,
     ):
@@ -57,6 +59,7 @@ class TranscriptRAG:
         self.prompt_template = prompt_template
         self.last_call = None
 
+    
     def search(self, query: str, limit: int = 5) -> List[Dict[str, Any]]:
         """Retrieve the top transcript chunks using hybrid text + vector search."""
         return hybrid_search(query, limit=limit)

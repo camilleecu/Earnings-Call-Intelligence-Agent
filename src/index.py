@@ -48,7 +48,7 @@ def normalize_for_text_search(query: str) -> str:
     }
     tokens = [t.lower().strip("?.!,") for t in query.split()]
     tokens = [t for t in tokens if t and t not in stopwords]
-    return " | ".join(tokens)
+    return " or ".join(tokens)
 
 def text_search(query: str, limit: int = 5) -> List[Dict[str, Any]]:
     relaxed_query = normalize_for_text_search(query)
@@ -59,7 +59,7 @@ def text_search(query: str, limit: int = 5) -> List[Dict[str, Any]]:
 
     sql = """
         WITH q AS (
-            SELECT to_tsquery('english', %s) AS query
+            SELECT websearch_to_tsquery('english', %s) AS query
         )
         SELECT
             id, doc_id, chunk_index, symbol, year, quarter, date, source, text,

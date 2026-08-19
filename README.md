@@ -15,15 +15,21 @@ The application is especially useful for investors, analysts, and researchers wh
 
 The goal of this project is to create an interactive assistant that:
 
-- ingests earnings call transcripts,
+- scheduled ingests earnings call transcripts,
 - chunks and indexes the text for retrieval,
+- user query re-writing for better retrieval results,
 - uses hybrid search to find relevant context,
 - generates grounded answers with an LLM,
 - stores query and feedback data for monitoring and evaluation,
 - and presents the results through a Streamlit interface.
 
+### High-level architecture
 
-## Ingestion Pipeline
+```text
+User question → Streamlit UI → Query rewriting → Filtered hybrid retrieval → Prompt assembly → Gemini LLM → Answer + sources
+```
+
+## Ingestion Pipeline with Kestra
 
 The ingestion pipeline prepares earnings-call transcripts for hybrid retrieval and runs automatically through Kestra.
 
@@ -36,21 +42,19 @@ The ingestion pipeline prepares earnings-call transcripts for hybrid retrieval a
 7. PostgreSQL automatically generates a weighted `text_search` value from the chunk text and metadata, enabling full-text search alongside vector search.
 8. The unique `(doc_id, chunk_index)` constraint makes ingestion idempotent: rerunning the pipeline does not insert duplicate chunks.
 
+
 ## Retrieval Flow
 
-1. The user enters a question in the Streamlit app.
-2. The app sends the query to the RAG helper.
-3. Hybrid search retrieves the most relevant transcript chunks.
-4. The retrieved chunks are formatted into a prompt context.
-5. Gemini generates a grounded answer using only the provided context.
-6. The answer and supporting sources are displayed back to the user.
-7. The interaction can be saved for later analysis and monitoring.
+1. The user enters a natural-language question in the Streamlit app.
+2. The app sends the original question to the RAG helper.
+3. Gemini rewrites the question into a retrieval-focused query and extracts a ticker symbol and any explicitly stated year or quarter.
+4. Hybrid retrieval combines PostgreSQL full-text and vector search, using the extracted ticker and time metadata as optional filters.
+5. Retrieved transcript chunks, including their ticker, year, and quarter metadata, are formatted into prompt context.
+6. Gemini generates a grounded answer using only the retrieved context while retaining the user’s original question.
+7. The Streamlit app displays the answer and supporting transcript sources.
+8. The interaction and optional user feedback can be saved for monitoring and evaluation.
 
-### High-level architecture
-
-```text
-User question → Streamlit UI → Hybrid retrieval → Prompt assembly → Gemini LLM → Answer + sources
-```
+Query rewriting bridges the gap between natural company names—such as “Google” or “Apple”—and ticker-based transcript metadata stored in the database. It improves retrieval precision without changing the user-facing question.
 
 ## Interface
 
@@ -61,8 +65,6 @@ The application provides a Streamlit-based user interface with:
 - a Clear button to reset the input,
 - a sidebar for settings such as top-k chunks,
 - and example queries to help users get started.
-
-The interface is intentionally simple so users can focus on asking questions and reviewing grounded answers from earnings call transcripts.
 
 
 

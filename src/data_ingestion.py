@@ -64,7 +64,8 @@ def normalize_example(example: Dict[str, Any]) -> Dict[str, Any]:
 
 
 
-def chunk_text(text: str, chunk_size: int = 1000, overlap: int = 150):
+
+def chunk_text(text: str, chunk_size: int = 1200, overlap: int = 200):
     chunks = []
     start = 0
     while start < len(text):
@@ -166,8 +167,8 @@ def ingest_ticker(ticker: str) -> bool:
 
     chunks = chunk_text(
         normalized_transcript["text"],
-        chunk_size=1000,
-        overlap=150,
+        chunk_size=1200,
+        overlap=200,
     )
     embeddings = embed_chunks(chunks)
     load_to_db(

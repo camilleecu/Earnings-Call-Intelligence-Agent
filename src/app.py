@@ -3,7 +3,7 @@ import streamlit as st
 from dotenv import load_dotenv
 
 from db_save import save_conversation, save_feedback
-from src.rag_helper_project import ask, ragger
+from src.rag_helper_project_rewrite import ask, ragger
 
 load_dotenv()
 
@@ -59,7 +59,6 @@ if result:
                     "symbol": src.get("symbol"),
                     "year": src.get("year"),
                     "quarter": src.get("quarter"),
-                    "score": src.get("rrf_score", src.get("score")),
                     "text": src.get("text", "")[:250],
                 }
             )
