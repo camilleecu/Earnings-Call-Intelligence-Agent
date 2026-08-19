@@ -120,7 +120,8 @@ A dashboard can display summary metrics such as:
 - and recent conversations.
 
 
-![Dashboard](dashboard1.png) ![Dashboard 2](dashboard2.png)
+![Dashboard](dashboard1.png) 
+![Dashboard 2](dashboard2.png)
 
 ## Reproducibility
 
@@ -139,7 +140,7 @@ A dashboard can display summary metrics such as:
 |---|---|---|
 | Language | Python 3.11 | Core application, ingestion, retrieval, and evaluation code |
 | Frontend | Streamlit | Interactive earnings-call Q&A application and monitoring dashboard |
-| LLM | Google Gemini 2.5 Flash | Generates concise, grounded answers from retrieved transcript context |
+| LLM | Google Gemini 3.6 Flash | Generates concise, grounded answers from retrieved transcript context |
 | Data source | ROIC.AI API | Retrieves earnings-call transcripts for tracked public companies |
 | Orchestration | Kestra | Runs rate-limited, batch-based scheduled transcript ingestion |
 | Ingestion | Python + Docker | Fetches transcripts, normalizes text, chunks content, creates embeddings, and stores results |
