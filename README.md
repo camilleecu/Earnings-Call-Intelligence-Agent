@@ -176,6 +176,7 @@ pip install -r requirements.txt
 Set the required environment variables before running the app.
 
 ## Usage
+Insert your gemini api key and ROIC api key in ".env.example". and rename the file name to ".env".
 
 Start the main app:
 
