@@ -84,6 +84,16 @@ Two relevance levels are reported:
 | Hybrid search (text + vector RRF) | 0.833 | 0.567 | 0.740 | 0.418 |
 
 
+### LLM-as-a-Judge Evaluation Results
+The full RAG pipeline was evaluated by comparing each generated answer with a reference answer. An LLM judge classified each answer as good or bad based on factual correctness, completeness, and whether it directly answered the question.
+| Metric                             | Result |
+| ---------------------------------- | ------ |
+| RAG answers                        | 15     |
+| Judge-scored answers               | 15     |
+| Good answers                       | 5      |
+| Bad answers                        | 10     |
+| Partial RAG answer quality         | 33.3%  |
+
 ## Monitoring
 
 The project includes monitoring and logging features so usage can be tracked over time. Conversation records store fields such as:
@@ -106,7 +116,7 @@ A dashboard can display summary metrics such as:
 - cost over time,
 - response time over time,
 - and recent conversations.
-
+![Monitoring](images/dashboard.png)
 
 ## Reproducibility
 
