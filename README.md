@@ -98,14 +98,15 @@ Two relevance levels are reported:
 The full RAG pipeline was evaluated by comparing each generated answer with a reference answer, measuring Context Relevance, Faithfulness / Groundedness, Answer Relevance, and an overall Judge Score across 15 queries.
 
 ##### without rewriting:
-| Metric | Result | 
-| Total Queries Evaluated | 15 | 
-| Good Answers (≥0.80 Judge Score) | 7 | 
-| Suboptimal / Bad Answers (<0.80 Judge Score) | 8 | 
-| Mean Context Relevance | 64.0% | 
-| Mean Faithfulness / Groundedness | 87.7% | 
-| Mean Answer Relevance | 54.3% | 
-| Average Judge Score (Overall RAG Quality) | 52.3% | 
+| Metric | Result |
+|--------|--------|
+| Total Queries Evaluated | 15 |
+| Good Answers (≥0.80 Judge Score) | 7 |
+| Suboptimal / Bad Answers (<0.80 Judge Score) | 8 |
+| Mean Context Relevance | 64.0% |
+| Mean Faithfulness / Groundedness | 87.7% |
+| Mean Answer Relevance | 54.3% |
+| Average Judge Score (Overall RAG Quality) | 52.3% |
 
 ## Monitoring
 
